@@ -1,413 +1,566 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CL Magno I.T. Solutions builds cross-platform applications and provides project-based data engineering bootcamps, self-paced training, and corporate I.T. training.">
+    <meta name="theme-color" content="#050505">
+    <meta property="og:title" content="CL Magno I.T. Solutions | Apps & Training">
+    <meta property="og:description" content="Build powerful apps. Accelerate your I.T. career with project-based training and production-ready application development.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://clmits.com/">
+    <link rel="icon" type="image/png" href="img/clmits.png">
+    <link rel="apple-touch-icon" href="img/clmits.png">
+    <meta property="og:url" content="https://clmits.com/">
+    <meta property="og:image" content="https://clmits.com/img/clmits.png">
     <title>CL Magno I.T. Solutions | Apps & Training</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ink: '#050505',
+                        graphite: '#171717',
+                        paper: '#f7f7f7',
+                        line: '#dddddd',
+                        signal: '#0f8ec2'
+                    },
+                    boxShadow: {
+                        soft: '0 18px 50px rgba(0,0,0,0.08)',
+                        hard: '10px 10px 0 rgba(0,0,0,0.16)'
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        /* Custom scrollbar for the module list */
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 6px;
+        :root { color-scheme: light; }
+        * { -webkit-tap-highlight-color: transparent; }
+        body { font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+        section { scroll-margin-top: 88px; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #efefef; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #bdbdbd; border-radius: 999px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #8f8f8f; }
+        .grid-bg {
+            background-image:
+                linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+            background-size: 34px 34px;
         }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: #f1f5f9; 
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #cbd5e1; 
-            border-radius: 10px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8; 
+        .dark-radial {
+            background:
+                radial-gradient(circle at top left, rgba(255,255,255,0.18), transparent 34%),
+                radial-gradient(circle at bottom right, rgba(15,142,194,0.18), transparent 30%),
+                linear-gradient(135deg, #050505 0%, #1c1c1c 100%);
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-900 font-sans">
+<body class="bg-paper text-ink antialiased selection:bg-ink selection:text-white">
 
-    <nav class="bg-white shadow">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <div class="flex-shrink-0 font-bold text-xl text-blue-600">
-                    CL Magno I.T. Solutions
-                </div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#services" class="text-gray-700 hover:text-blue-600">App Development</a>
-                    <a href="#bootcamps" class="text-gray-700 hover:text-blue-600">Bootcamps</a>
-                    <a href="#preview" class="text-gray-700 hover:text-blue-600">Self-Paced</a>
-                    <a href="#contact" class="text-gray-700 hover:text-blue-600">Contact</a>
-                </div>
+    <nav class="sticky top-0 z-50 border-b border-line/80 bg-white/95 backdrop-blur-xl">
+        <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-6 lg:px-8">
+            <a href="#home" class="group flex items-center gap-3" aria-label="CL Magno I.T. Solutions home">
+                <img src="img/clmits.png" alt="CLMITS logo" class="h-11 w-11 rounded-xl object-contain transition-transform group-hover:-translate-y-0.5 sm:h-12 sm:w-12" loading="eager">
+                <span class="text-sm font-black tracking-tight sm:text-base">CL Magno I.T. Solutions</span>
+            </a>
+
+            <div class="hidden items-center gap-10 text-sm font-bold md:flex">
+                <a href="#services" class="hover:text-signal">App Development</a>
+                <a href="#bootcamps" class="hover:text-signal">Bootcamps</a>
+                <a href="#preview" class="hover:text-signal">Self-Paced</a>
+                <a href="#contact" class="hover:text-signal">Contact</a>
+            </div>
+
+            <a href="#contact" class="hidden rounded-full bg-ink px-5 py-2.5 text-sm font-black text-white transition hover:-translate-y-0.5 hover:shadow-lg md:inline-flex">
+                Start a Project
+            </a>
+
+            <button id="menuButton" type="button" class="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-line bg-white md:hidden" aria-label="Open navigation menu" aria-expanded="false">
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16" /></svg>
+            </button>
+        </div>
+        <div id="mobileMenu" class="hidden border-t border-line bg-white px-5 py-4 md:hidden">
+            <div class="grid gap-3 text-sm font-bold">
+                <a href="#services" class="rounded-xl px-3 py-2 hover:bg-gray-100">App Development</a>
+                <a href="#bootcamps" class="rounded-xl px-3 py-2 hover:bg-gray-100">Bootcamps</a>
+                <a href="#preview" class="rounded-xl px-3 py-2 hover:bg-gray-100">Self-Paced</a>
+                <a href="#contact" class="rounded-xl px-3 py-2 hover:bg-gray-100">Contact</a>
             </div>
         </div>
     </nav>
 
-    <header class="bg-blue-600 text-white text-center py-20">
-        <div class="max-w-3xl mx-auto px-4">
-            <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl">
-                Build Powerful Apps. Accelerate Your I.T. Career.
-            </h1>
-            <p class="mt-6 text-lg">
-                We deliver cross-platform application development and industry-leading training programs to bridge the gap between ideas and execution.
-            </p>
-            <div class="mt-10 flex justify-center gap-4">
-                <a href="#services" class="bg-white text-blue-600 px-6 py-3 rounded-md font-semibold hover:bg-gray-100">Hire Us</a>
-                <a href="#bootcamps" class="border border-white px-6 py-3 rounded-md font-semibold hover:bg-blue-700">Explore Training</a>
-            </div>
-        </div>
-    </header>
-
-    <section id="services" class="py-24 bg-white relative overflow-hidden">
-        
-        <div class="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-            <div class="absolute top-[-10%] right-[-5%] w-96 h-96 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-60"></div>
-            <div class="absolute bottom-[-10%] left-[-5%] w-96 h-96 bg-indigo-100 rounded-full mix-blend-multiply filter blur-3xl opacity-60"></div>
-        </div>
-
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 sm:text-5xl mb-4 pb-2">
-                    Cross-Platform Excellence
-                </h2>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                    We engineer high-performance, scalable applications that deliver a flawless, native-like experience across every device and browser.
-                </p>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="group relative bg-white p-8 rounded-2xl shadow-md border border-gray-100 hover:shadow-2xl hover:border-transparent transition-all duration-300 transform hover:-translate-y-2">
-                    <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-t-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <div class="w-16 h-16 bg-blue-50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-blue-600 transition-colors duration-300 shadow-sm">
-                        <svg class="w-8 h-8 text-blue-600 group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+    <main id="home">
+        <header class="relative overflow-hidden bg-white">
+            <div class="absolute inset-y-0 right-0 hidden w-1/2 bg-[radial-gradient(circle_at_75%_30%,rgba(15,142,194,0.16),transparent_32%),linear-gradient(90deg,transparent,#f4f4f4)] lg:block"></div>
+            <div class="mx-auto grid min-h-[calc(100vh-4rem)] max-w-7xl items-center gap-12 px-5 py-20 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8 lg:py-24">
+                <div class="relative z-10">
+                    <div class="mb-8 inline-flex items-center gap-2 rounded-full border border-line bg-white px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-gray-700 shadow-sm">
+                        Apps • Data • Training
                     </div>
-                    <h3 class="font-bold text-2xl text-gray-900 mb-3 group-hover:text-blue-600 transition-colors duration-300">Modern Web Apps</h3>
-                    <p class="text-gray-600 leading-relaxed">Scalable, responsive web platforms built with cutting-edge frameworks. We focus on lightning-fast load times and seamless UX.</p>
-                </div>
-
-                <div class="group relative bg-white p-8 rounded-2xl shadow-md border border-gray-100 hover:shadow-2xl hover:border-transparent transition-all duration-300 transform hover:-translate-y-2">
-                    <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-t-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <div class="w-16 h-16 bg-indigo-50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-indigo-600 transition-colors duration-300 shadow-sm">
-                        <svg class="w-8 h-8 text-indigo-600 group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
-                    </div>
-                    <h3 class="font-bold text-2xl text-gray-900 mb-3 group-hover:text-indigo-600 transition-colors duration-300">Mobile Applications</h3>
-                    <p class="text-gray-600 leading-relaxed">Deploy to both iOS and Android from a single codebase. We deliver cross-platform solutions without compromising on native performance.</p>
-                </div>
-
-                <div class="group relative bg-white p-8 rounded-2xl shadow-md border border-gray-100 hover:shadow-2xl hover:border-transparent transition-all duration-300 transform hover:-translate-y-2">
-                    <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-t-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <div class="w-16 h-16 bg-blue-50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-blue-700 transition-colors duration-300 shadow-sm">
-                        <svg class="w-8 h-8 text-blue-700 group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path></svg>
-                    </div>
-                    <h3 class="font-bold text-2xl text-gray-900 mb-3 group-hover:text-blue-700 transition-colors duration-300">APIs & Architectures</h3>
-                    <p class="text-gray-600 leading-relaxed">End-to-end backend architecture. We design robust databases, secure RESTful APIs, and reliable cloud deployments to power your apps.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="bootcamps" class="py-16 bg-gray-50 border-t border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Live Training</span>
-                <h2 class="text-3xl font-bold text-gray-900 mt-4">12-Week Curriculum</h2>
-                <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
-                    A project-driven path from raw data to automated pipelines. Master the modern data stack and build a portfolio-ready Capstone project.
-                </p>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-white border border-gray-200 p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow">
-                    <span class="bg-gray-100 text-gray-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Weeks 1-3</span>
-                    <h3 class="text-xl font-bold mt-4 mb-2">Data Foundations & Scripting</h3>
-                    <p class="text-gray-600 mb-6">Establish a strong programming foundation. Learn to write efficient, clean code to extract and manipulate data from various sources.</p>
-                    <div class="mb-4">
-                        <strong class="text-sm text-gray-900 block mb-2">Key Concepts:</strong>
-                        <ul class="list-disc list-inside text-sm text-gray-600 space-y-1">
-                            <li>Advanced Data Structures</li>
-                            <li>API Interactions & Data Extraction</li>
-                            <li>Relational Database Fundamentals</li>
-                        </ul>
-                    </div>
-                    <div class="flex flex-wrap gap-2 mt-auto">
-                        <span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded font-medium">Python</span>
-                        <span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded font-medium">SQL</span>
-                        <span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded font-medium">PostgreSQL</span>
-                    </div>
-                </div>
-
-                <div class="bg-white border border-gray-200 p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow">
-                    <span class="bg-gray-100 text-gray-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Weeks 4-6</span>
-                    <h3 class="text-xl font-bold mt-4 mb-2">Data Warehousing & Modeling</h3>
-                    <p class="text-gray-600 mb-6">Transition from transactional databases to analytical storage. Learn to architect data models optimized for business intelligence.</p>
-                    <div class="mb-4">
-                        <strong class="text-sm text-gray-900 block mb-2">Key Concepts:</strong>
-                        <ul class="list-disc list-inside text-sm text-gray-600 space-y-1">
-                            <li>Dimensional Modeling (Star Schema)</li>
-                            <li>OLTP vs. OLAP Systems</li>
-                            <li>Cloud Data Warehouse Setup</li>
-                        </ul>
-                    </div>
-                    <div class="flex flex-wrap gap-2 mt-auto">
-                        <span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded font-medium">GCP</span>
-                        <span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded font-medium">BigQuery</span>
-                    </div>
-                </div>
-
-                <div class="bg-white border border-gray-200 p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow">
-                    <span class="bg-gray-100 text-gray-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Weeks 7-9</span>
-                    <h3 class="text-xl font-bold mt-4 mb-2">Big Data Processing & ETL</h3>
-                    <p class="text-gray-600 mb-6">Scale your pipelines to handle massive datasets. Build robust Extract, Transform, Load (ETL) processes using distributed computing.</p>
-                    <div class="mb-4">
-                        <strong class="text-sm text-gray-900 block mb-2">Key Concepts:</strong>
-                        <ul class="list-disc list-inside text-sm text-gray-600 space-y-1">
-                            <li>Distributed Computing Architecture</li>
-                            <li>Data Transformations at Scale</li>
-                            <li>Handling Data Quality & Schemas</li>
-                        </ul>
-                    </div>
-                    <div class="flex flex-wrap gap-2 mt-auto">
-                        <span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded font-medium">PySpark</span>
-                        <span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded font-medium">Cloud Storage</span>
-                    </div>
-                </div>
-
-                <div class="bg-white border border-gray-200 p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow">
-                    <span class="bg-gray-100 text-gray-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Weeks 10-12</span>
-                    <h3 class="text-xl font-bold mt-4 mb-2">Orchestration & Capstone</h3>
-                    <p class="text-gray-600 mb-6">Automate your pipelines and deploy your final project. Tie everything together into a production-ready data engineering portfolio piece.</p>
-                    <div class="mb-4">
-                        <strong class="text-sm text-gray-900 block mb-2">Key Concepts:</strong>
-                        <ul class="list-disc list-inside text-sm text-gray-600 space-y-1">
-                            <li>DAGs (Directed Acyclic Graphs)</li>
-                            <li>Pipeline Scheduling & Monitoring</li>
-                            <li>End-to-End Capstone Presentation</li>
-                        </ul>
-                    </div>
-                    <div class="flex flex-wrap gap-2 mt-auto">
-                        <span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded font-medium">Apache Airflow</span>
-                        <span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded font-medium">Docker</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="preview" class="py-20 bg-white border-t border-gray-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            
-            <div class="mb-12">
-                <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Self-Paced Option</span>
-                <h2 class="text-3xl font-extrabold text-gray-900 mt-4 mb-2">Data Engineering Masterclass</h2>
-                <p class="text-lg text-gray-600 max-w-3xl">
-                    Get a taste of our 18-module curriculum. Watch the first lesson below and download the accompanying starter code to follow along.
-                </p>
-            </div>
-
-            <div class="grid lg:grid-cols-3 gap-8">
-                
-                <div class="lg:col-span-2 space-y-6">
-                    <div class="relative w-full overflow-hidden rounded-xl shadow-lg border border-gray-100 bg-black pt-[56.25%]">
-                        
-                        <iframe class="absolute top-0 left-0 w-full h-full" 
-                        src="https://www.youtube-nocookie.com/embed/cEVYVjaJUGc"
-                        title="Data Engineering Bootcamp - Self-paced Resources Preview" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                        
-                        allowfullscreen></iframe>
-                    </div>
-
-                    <div class="bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                        <div>
-                            <h3 class="text-xl font-bold text-gray-900">Module 1: Python Fundamentals</h3>
-                            <p class="text-gray-500 text-sm mt-1">Free Preview • Includes Starter Code</p>
-                        </div>
-                        
-                        <a href="/assets/module_1_sample_code.zip" download
-                            class="inline-flex items-center justify-center bg-blue-100 text-blue-700 hover:bg-blue-200 font-semibold px-5 py-2.5 rounded-lg transition-colors shrink-0">
-                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
-                            </svg>
-                            Download Sample Code
+                    <h1 class="max-w-4xl text-5xl font-black leading-[0.96] tracking-[-0.055em] text-ink sm:text-6xl lg:text-7xl">
+                        Build Powerful Apps. Accelerate Your I.T. Career.
+                    </h1>
+                    <p class="mt-8 max-w-2xl text-lg leading-8 text-gray-700 sm:text-xl">
+                        We deliver cross-platform application development and industry-leading training programs that bridge the gap between ideas and production-ready execution.
+                    </p>
+                    <div class="mt-10 flex flex-col gap-4 sm:flex-row">
+                        <a href="#contact" class="inline-flex items-center justify-center rounded-xl border border-ink bg-white px-7 py-3.5 text-sm font-black text-ink transition hover:-translate-y-0.5 hover:shadow-lg">
+                            Hire Us
+                        </a>
+                        <a href="#bootcamps" class="inline-flex items-center justify-center rounded-xl bg-ink px-7 py-3.5 text-sm font-black text-white transition hover:-translate-y-0.5 hover:shadow-lg">
+                            Explore Training
                         </a>
                     </div>
+                    <div class="mt-12 grid max-w-2xl grid-cols-3 gap-4 border-t border-line pt-8 text-center sm:text-left">
+                        <div>
+                            <div class="text-2xl font-black tracking-tight">12</div>
+                            <div class="text-xs font-bold uppercase tracking-wide text-gray-500">Week Live Path</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-black tracking-tight">18</div>
+                            <div class="text-xs font-bold uppercase tracking-wide text-gray-500">Self-Paced Modules</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-black tracking-tight">1:1</div>
+                            <div class="text-xs font-bold uppercase tracking-wide text-gray-500">Practical Build Focus</div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="bg-gray-50 rounded-xl shadow-sm border border-gray-200 flex flex-col h-[500px] lg:h-auto overflow-hidden">
-                    <div class="p-4 border-b border-gray-200 bg-white">
-                        <h4 class="font-bold text-gray-900">Course Content</h4>
-                        <p class="text-xs text-gray-500 mt-1">18 Modules • Self-Paced Recordings</p>
+                <div class="relative hidden lg:block">
+                    <div class="absolute -left-8 top-12 h-64 w-64 rounded-full bg-signal/10 blur-3xl"></div>
+                    <div class="relative rounded-[2rem] border border-line bg-white p-5 shadow-soft">
+                        <div class="dark-radial grid-bg rounded-[1.55rem] p-6 text-white shadow-hard">
+                            <div class="mb-10 flex items-center justify-between border-b border-white/10 pb-5">
+                                <div>
+                                    <p class="text-xs font-black uppercase tracking-[0.28em] text-white/60">Delivery Dashboard</p>
+                                    <h2 class="mt-2 text-2xl font-black tracking-tight">From idea to launch</h2>
+                                </div>
+                                <span class="rounded-full bg-white px-3 py-1 text-xs font-black text-ink">Active</span>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="rounded-2xl border border-white/10 bg-white/10 p-4 backdrop-blur">
+                                    <div class="flex items-center justify-between">
+                                        <span class="font-black">Design & Planning</span>
+                                        <span class="text-sm text-white/70">100%</span>
+                                    </div>
+                                    <div class="mt-3 h-2 rounded-full bg-white/10"><div class="h-2 w-full rounded-full bg-white"></div></div>
+                                </div>
+                                <div class="rounded-2xl border border-white/10 bg-white/10 p-4 backdrop-blur">
+                                    <div class="flex items-center justify-between">
+                                        <span class="font-black">Development Sprint</span>
+                                        <span class="text-sm text-white/70">72%</span>
+                                    </div>
+                                    <div class="mt-3 h-2 rounded-full bg-white/10"><div class="h-2 w-[72%] rounded-full bg-white"></div></div>
+                                </div>
+                                <div class="rounded-2xl border border-white/10 bg-white/10 p-4 backdrop-blur">
+                                    <div class="flex items-center justify-between">
+                                        <span class="font-black">Deployment</span>
+                                        <span class="text-sm text-white/70">Ready</span>
+                                    </div>
+                                    <div class="mt-3 grid grid-cols-3 gap-2 text-center text-xs font-black text-ink">
+                                        <span class="rounded-lg bg-white px-2 py-2">Web</span>
+                                        <span class="rounded-lg bg-white px-2 py-2">API</span>
+                                        <span class="rounded-lg bg-white px-2 py-2">Cloud</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    
-                    <div class="overflow-y-auto flex-1 p-2 space-y-1 custom-scrollbar">
-                        
-                        <div class="flex items-center justify-between p-3 bg-white rounded-lg border border-blue-200 shadow-sm cursor-pointer">
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-700">
-                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
-                                </div>
-                                <div>
-                                    <p class="text-sm font-bold text-blue-900">1. Python Fundamentals</p>
-                                    <p class="text-xs text-blue-600">Preview Available</p>
-                                </div>
-                            </div>
+                </div>
+            </div>
+        </header>
+
+        <section id="services" class="bg-white">
+            <div class="dark-radial grid-bg border-y border-ink px-5 py-16 text-center text-white sm:px-6 lg:px-8">
+                <div class="mx-auto max-w-4xl">
+                    <p class="mb-4 text-xs font-black uppercase tracking-[0.3em] text-white/60">Application Development</p>
+                    <h2 class="text-4xl font-black tracking-[-0.045em] sm:text-5xl lg:text-6xl">Cross-Platform Excellence</h2>
+                    <p class="mx-auto mt-5 max-w-2xl text-base leading-7 text-white/80">
+                        We engineer high-performance, scalable applications that deliver a seamless, native-like experience across every device and browser.
+                    </p>
+                </div>
+            </div>
+
+            <div class="mx-auto max-w-7xl px-5 py-16 sm:px-6 lg:px-8 lg:py-20">
+                <div class="grid gap-8 md:grid-cols-3">
+                    <article class="group rounded-2xl border border-line bg-[#f2f2f2] p-8 text-center transition duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-soft">
+                        <div class="mx-auto mb-7 grid h-24 w-24 place-items-center rounded-3xl bg-white shadow-sm transition group-hover:scale-105">
+                            <svg class="h-14 w-14 text-signal" viewBox="0 0 80 80" fill="none" aria-hidden="true">
+                                <rect x="17" y="15" width="46" height="54" rx="5" fill="currentColor" opacity="0.18"/>
+                                <rect x="23" y="9" width="46" height="54" rx="5" fill="currentColor" opacity="0.35"/>
+                                <rect x="29" y="20" width="27" height="5" rx="2.5" fill="currentColor"/>
+                                <rect x="29" y="32" width="30" height="4" rx="2" fill="#111" opacity="0.7"/>
+                                <rect x="29" y="43" width="23" height="4" rx="2" fill="#111" opacity="0.45"/>
+                                <path d="M22 32l3 3 6-7" stroke="#f4b000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M22 46l3 3 6-7" stroke="#f4b000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-black tracking-tight text-signal">Modern Web Apps</h3>
+                        <p class="mt-4 text-sm leading-6 text-gray-700">
+                            Scalable, responsive platforms built with clean interfaces, fast load times, and workflows that feel intuitive from day one.
+                        </p>
+                    </article>
+
+                    <article class="group rounded-2xl border border-line bg-[#f2f2f2] p-8 text-center transition duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-soft">
+                        <div class="mx-auto mb-7 grid h-24 w-24 place-items-center rounded-3xl bg-white shadow-sm transition group-hover:scale-105">
+                            <svg class="h-14 w-14 text-signal" viewBox="0 0 80 80" fill="none" aria-hidden="true">
+                                <rect x="28" y="10" width="24" height="48" rx="7" fill="currentColor" opacity="0.30"/>
+                                <rect x="32" y="16" width="16" height="30" rx="3" fill="white"/>
+                                <circle cx="40" cy="52" r="3" fill="currentColor"/>
+                                <path d="M19 31c-6 6-6 15 0 21" stroke="#ef4444" stroke-width="6" stroke-linecap="round"/>
+                                <path d="M61 31c6 6 6 15 0 21" stroke="#ef4444" stroke-width="6" stroke-linecap="round"/>
+                                <path d="M28 62c8 6 16 6 24 0" stroke="#f59e0b" stroke-width="6" stroke-linecap="round"/>
+                                <circle cx="60" cy="24" r="6" fill="#f472b6" opacity="0.9"/>
+                                <circle cx="20" cy="24" r="5" fill="#fbbf24" opacity="0.9"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-black tracking-tight text-signal">Mobile Applications</h3>
+                        <p class="mt-4 text-sm leading-6 text-gray-700">
+                            Deploy to iOS and Android from a focused codebase without compromising speed, usability, or long-term maintainability.
+                        </p>
+                    </article>
+
+                    <article class="group rounded-2xl border border-line bg-[#f2f2f2] p-8 text-center transition duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-soft">
+                        <div class="mx-auto mb-7 grid h-24 w-24 place-items-center rounded-3xl bg-white shadow-sm transition group-hover:scale-105">
+                            <svg class="h-14 w-14 text-signal" viewBox="0 0 80 80" fill="none" aria-hidden="true">
+                                <rect x="12" y="12" width="48" height="34" rx="3" fill="currentColor" opacity="0.18"/>
+                                <rect x="17" y="18" width="38" height="5" rx="2" fill="#111" opacity="0.72"/>
+                                <circle cx="24" cy="32" r="3" fill="#f59e0b"/>
+                                <circle cx="33" cy="32" r="3" fill="#22c55e"/>
+                                <circle cx="42" cy="32" r="3" fill="currentColor"/>
+                                <path d="M21 57h13M21 65h18M21 57l4-8h6l4 8" stroke="#111" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+                                <path d="M58 44v8m0 12v6m13-13h-6m-14 0h-6m20-9-4 4m-10 10-4 4m18 0-4-4m-10-10-4-4" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+                                <circle cx="58" cy="57" r="9" stroke="currentColor" stroke-width="5"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-black tracking-tight text-signal">APIs & Architectures</h3>
+                        <p class="mt-4 text-sm leading-6 text-gray-700">
+                            End-to-end backend architecture, secure RESTful APIs, robust databases, and reliable cloud deployments to power your apps.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="bootcamps" class="bg-paper">
+            <div class="dark-radial grid-bg border-y border-ink px-5 py-12 text-center text-white sm:px-6 lg:px-8">
+                <div class="mx-auto max-w-5xl">
+                    <div class="mb-5 flex justify-center lg:justify-end">
+                        <span class="rounded-full bg-white px-4 py-1.5 text-[11px] font-black text-ink">Live Training</span>
+                    </div>
+                    <h2 class="text-4xl font-black tracking-[-0.04em] sm:text-5xl">12-Week Curriculum</h2>
+                    <p class="mx-auto mt-5 max-w-3xl text-base leading-7 text-white/85">
+                        A project-driven path from raw data to automated pipelines. Master the modern data stack and build a portfolio-ready capstone project.
+                    </p>
+                </div>
+            </div>
+
+            <div class="mx-auto max-w-6xl px-5 py-14 sm:px-6 lg:px-8">
+                <div class="grid gap-8 lg:grid-cols-2">
+                    <article class="flex h-full flex-col rounded-xl border border-gray-300 bg-white p-7 shadow-[0_4px_0_rgba(0,0,0,0.18)] transition hover:-translate-y-1 hover:shadow-hard">
+                        <span class="mb-5 w-fit rounded-md bg-signal px-4 py-1 text-[11px] font-black text-white">Weeks 1-3</span>
+                        <h3 class="text-xl font-black tracking-tight">Data Foundations & Scripting</h3>
+                        <p class="mt-3 text-sm leading-6 text-gray-700">Establish a strong programming foundation. Learn to write efficient, clean code to extract and manipulate data from various sources.</p>
+                        <div class="mt-6">
+                            <h4 class="text-sm font-black">Key Concepts:</h4>
+                            <ul class="mt-2 list-disc space-y-1 pl-5 text-sm text-gray-700">
+                                <li>Advanced data structures</li>
+                                <li>API interactions and data extraction</li>
+                                <li>Relational database fundamentals</li>
+                            </ul>
+                        </div>
+                        <div class="mt-auto flex flex-wrap gap-3 pt-6">
+                            <span class="rounded-md bg-signal px-4 py-1.5 text-xs font-black text-white">Python</span>
+                            <span class="rounded-md bg-signal px-4 py-1.5 text-xs font-black text-white">SQL</span>
+                            <span class="rounded-md bg-signal px-4 py-1.5 text-xs font-black text-white">PostgreSQL</span>
+                        </div>
+                    </article>
+
+                    <article class="flex h-full flex-col rounded-xl border border-gray-300 bg-white p-7 shadow-[0_4px_0_rgba(0,0,0,0.18)] transition hover:-translate-y-1 hover:shadow-hard">
+                        <span class="mb-5 w-fit rounded-md bg-signal px-4 py-1 text-[11px] font-black text-white">Weeks 4-6</span>
+                        <h3 class="text-xl font-black tracking-tight">Data Warehousing & Modeling</h3>
+                        <p class="mt-3 text-sm leading-6 text-gray-700">Transition from transactional databases to analytical storage. Learn to architect data models optimized for business intelligence.</p>
+                        <div class="mt-6">
+                            <h4 class="text-sm font-black">Key Concepts:</h4>
+                            <ul class="mt-2 list-disc space-y-1 pl-5 text-sm text-gray-700">
+                                <li>Dimensional modeling and star schema</li>
+                                <li>OLTP vs. OLAP systems</li>
+                                <li>Cloud data warehouse setup</li>
+                            </ul>
+                        </div>
+                        <div class="mt-auto flex flex-wrap gap-3 pt-6">
+                            <span class="rounded-md bg-signal px-4 py-1.5 text-xs font-black text-white">GCP</span>
+                            <span class="rounded-md bg-signal px-4 py-1.5 text-xs font-black text-white">BigQuery</span>
+                        </div>
+                    </article>
+
+                    <article class="flex h-full flex-col rounded-xl border border-gray-300 bg-white p-7 shadow-[0_4px_0_rgba(0,0,0,0.18)] transition hover:-translate-y-1 hover:shadow-hard">
+                        <span class="mb-5 w-fit rounded-md bg-signal px-4 py-1 text-[11px] font-black text-white">Weeks 7-9</span>
+                        <h3 class="text-xl font-black tracking-tight">Big Data Processing & ETL</h3>
+                        <p class="mt-3 text-sm leading-6 text-gray-700">Scale your pipelines to handle massive datasets. Build robust extract, transform, load processes using distributed computing.</p>
+                        <div class="mt-6">
+                            <h4 class="text-sm font-black">Key Concepts:</h4>
+                            <ul class="mt-2 list-disc space-y-1 pl-5 text-sm text-gray-700">
+                                <li>Distributed computing architecture</li>
+                                <li>Data transformations at scale</li>
+                                <li>Handling data quality and schemas</li>
+                            </ul>
+                        </div>
+                        <div class="mt-auto flex flex-wrap gap-3 pt-6">
+                            <span class="rounded-md bg-signal px-4 py-1.5 text-xs font-black text-white">PySpark</span>
+                            <span class="rounded-md bg-signal px-4 py-1.5 text-xs font-black text-white">Cloud Storage</span>
+                        </div>
+                    </article>
+
+                    <article class="flex h-full flex-col rounded-xl border border-gray-300 bg-white p-7 shadow-[0_4px_0_rgba(0,0,0,0.18)] transition hover:-translate-y-1 hover:shadow-hard">
+                        <span class="mb-5 w-fit rounded-md bg-signal px-4 py-1 text-[11px] font-black text-white">Weeks 10-12</span>
+                        <h3 class="text-xl font-black tracking-tight">Orchestration & Capstone</h3>
+                        <p class="mt-3 text-sm leading-6 text-gray-700">Automate pipelines and deploy the final project. Tie everything together into a production-ready data engineering portfolio piece.</p>
+                        <div class="mt-6">
+                            <h4 class="text-sm font-black">Key Concepts:</h4>
+                            <ul class="mt-2 list-disc space-y-1 pl-5 text-sm text-gray-700">
+                                <li>DAGs and workflow dependencies</li>
+                                <li>Pipeline scheduling and monitoring</li>
+                                <li>End-to-end capstone presentation</li>
+                            </ul>
+                        </div>
+                        <div class="mt-auto flex flex-wrap gap-3 pt-6">
+                            <span class="rounded-md bg-signal px-4 py-1.5 text-xs font-black text-white">Apache Airflow</span>
+                            <span class="rounded-md bg-signal px-4 py-1.5 text-xs font-black text-white">Docker</span>
+                            <span class="rounded-md bg-gray-200 px-4 py-1.5 text-xs font-black text-gray-400">PostgreSQL</span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="preview" class="bg-white py-16 sm:py-20">
+            <div class="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+                <div class="mb-10 max-w-4xl">
+                    <span class="rounded-md bg-ink px-4 py-1.5 text-[11px] font-black text-white">Self-Paced Option</span>
+                    <h2 class="mt-6 text-4xl font-black tracking-[-0.04em] sm:text-5xl">Data Engineering Masterclass</h2>
+                    <p class="mt-4 max-w-3xl text-base leading-7 text-gray-700">
+                        Get a taste of our 18-module curriculum. Watch the first lesson below and download the starter code to follow along.
+                    </p>
+                </div>
+
+                <div class="grid gap-10 lg:grid-cols-[1fr_320px]">
+                    <div class="space-y-6">
+                        <div class="relative overflow-hidden rounded-xl border border-ink bg-black pt-[56.25%] shadow-[0_7px_0_rgba(0,0,0,0.18)]">
+                            <iframe class="absolute inset-0 h-full w-full"
+                                src="https://www.youtube-nocookie.com/embed/cEVYVjaJUGc"
+                                title="Data Engineering Bootcamp - Self-paced Resources Preview"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen></iframe>
                         </div>
 
-                        <div class="group flex items-center justify-between p-3 hover:bg-gray-100 rounded-lg transition-colors cursor-not-allowed">
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-500">
-                                    <span class="text-xs font-bold">2</span>
-                                </div>
-                                <div>
-                                    <p class="text-sm font-medium text-gray-700">2. Python Fundamentals 2</p>
-                                    <p class="text-xs text-gray-400">Locked</p>
-                                </div>
+                        <div class="rounded-xl border border-line bg-ink p-6 text-white shadow-[0_5px_0_rgba(0,0,0,0.18)] sm:flex sm:items-center sm:justify-between sm:gap-6">
+                            <div>
+                                <h3 class="text-2xl font-black tracking-tight">Module 1: Python Fundamentals</h3>
+                                <p class="mt-1 text-sm text-white/70">Free Preview • Includes Starter Code</p>
                             </div>
-                            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                        </div>
-
-                        <div class="group flex items-center justify-between p-3 hover:bg-gray-100 rounded-lg transition-colors cursor-not-allowed">
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-500">
-                                    <span class="text-xs font-bold">3</span>
-                                </div>
-                                <div>
-                                    <p class="text-sm font-medium text-gray-700">3. Python Advanced</p>
-                                    <p class="text-xs text-gray-400">Locked</p>
-                                </div>
-                            </div>
-                            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                        </div>
-
-                        <div class="group flex items-center justify-between p-3 hover:bg-gray-100 rounded-lg transition-colors cursor-not-allowed">
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-500">
-                                    <span class="text-xs font-bold">4</span>
-                                </div>
-                                <div>
-                                    <p class="text-sm font-medium text-gray-700">4. Python Advanced (ETL)</p>
-                                    <p class="text-xs text-gray-400">Locked</p>
-                                </div>
-                            </div>
-                            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                        </div>
-                        
-                        <div class="group flex items-center justify-between p-3 hover:bg-gray-100 rounded-lg transition-colors cursor-not-allowed">
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-500">
-                                    <span class="text-xs font-bold">5</span>
-                                </div>
-                                <div>
-                                    <p class="text-sm font-medium text-gray-700">5. Python Project & Git</p>
-                                    <p class="text-xs text-gray-400">Locked</p>
-                                </div>
-                            </div>
-                            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                        </div>
-                        
-                        <div class="mt-4 p-4 border-t border-gray-200 bg-white text-center">
-                            <p class="text-sm text-gray-600 mb-3">Unlock all 18 modules and source code.</p>
-                            <a href="#enroll" class="block w-full bg-blue-600 text-white text-sm font-bold py-2 px-4 rounded hover:bg-blue-700 transition-colors">
-                                Enroll Now
+                            <a href="/assets/module_1_sample_code.zip" download class="mt-5 inline-flex items-center justify-center rounded-lg bg-white px-5 py-3 text-sm font-black text-ink transition hover:-translate-y-0.5 sm:mt-0">
+                                <svg class="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4-4 4m0 0-4-4m4 4V4" /></svg>
+                                Download Code
                             </a>
                         </div>
                     </div>
+
+                    <aside class="overflow-hidden rounded-xl border border-gray-300 bg-[#f2f2f2] shadow-[0_5px_0_rgba(0,0,0,0.18)]">
+                        <div class="border-b border-gray-300 bg-white p-5">
+                            <h4 class="font-black">Course Content</h4>
+                            <p class="mt-1 text-xs font-semibold text-gray-500">18 Modules • Self-Paced Recordings</p>
+                        </div>
+                        <div class="max-h-[480px] space-y-1 overflow-y-auto p-3 custom-scrollbar">
+                            <div class="flex items-center justify-between rounded-lg bg-ink p-4 text-white">
+                                <div class="flex items-center gap-3">
+                                    <div class="grid h-8 w-8 place-items-center rounded-full border border-white/20 bg-white text-ink">
+                                        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" /></svg>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-black">1. Python Fundamentals</p>
+                                        <p class="text-xs text-white/70">Preview Available</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between rounded-lg p-4 transition hover:bg-white">
+                                <div class="flex items-center gap-3">
+                                    <span class="grid h-8 w-8 place-items-center rounded-full bg-ink text-xs font-black text-white">2</span>
+                                    <div><p class="text-sm font-bold">2. Python Fundamentals 2</p><p class="text-xs text-gray-500">Locked</p></div>
+                                </div>
+                                <svg class="h-4 w-4 text-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                            </div>
+                            <div class="flex items-center justify-between rounded-lg p-4 transition hover:bg-white">
+                                <div class="flex items-center gap-3">
+                                    <span class="grid h-8 w-8 place-items-center rounded-full bg-ink text-xs font-black text-white">3</span>
+                                    <div><p class="text-sm font-bold">3. Python Advanced</p><p class="text-xs text-gray-500">Locked</p></div>
+                                </div>
+                                <svg class="h-4 w-4 text-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                            </div>
+                            <div class="flex items-center justify-between rounded-lg p-4 transition hover:bg-white">
+                                <div class="flex items-center gap-3">
+                                    <span class="grid h-8 w-8 place-items-center rounded-full bg-ink text-xs font-black text-white">4</span>
+                                    <div><p class="text-sm font-bold">4. Python Advanced (ETL)</p><p class="text-xs text-gray-500">Locked</p></div>
+                                </div>
+                                <svg class="h-4 w-4 text-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                            </div>
+                            <div class="flex items-center justify-between rounded-lg p-4 transition hover:bg-white">
+                                <div class="flex items-center gap-3">
+                                    <span class="grid h-8 w-8 place-items-center rounded-full bg-ink text-xs font-black text-white">5</span>
+                                    <div><p class="text-sm font-bold">5. Python Project & Git</p><p class="text-xs text-gray-500">Locked</p></div>
+                                </div>
+                                <svg class="h-4 w-4 text-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                            </div>
+                            <div class="border-t border-gray-300 bg-white p-4 text-center">
+                                <p class="mb-3 text-sm text-gray-600">Unlock all 18 modules and source code.</p>
+                                <a href="#contact" class="block rounded-md bg-ink px-4 py-2.5 text-sm font-black text-white transition hover:-translate-y-0.5">Enroll Now</a>
+                            </div>
+                        </div>
+                    </aside>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="instructor" class="py-16 bg-gray-50 border-t border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-12 gap-12 items-center">
-                
-                <div class="md:col-span-5 flex justify-center md:justify-end">
-                    <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-white shadow-xl">
-                        <img src="img/clmagno.jpg" alt="CL Magno - Data Engineer" class="object-cover w-full h-full">
+        <section id="instructor" class="bg-paper py-16 sm:py-20">
+            <div class="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+                <div class="grid items-center gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+                    <div>
+                        <div class="relative max-w-md">
+                            <div class="absolute -bottom-7 -left-7 h-full w-full rounded-[2rem] bg-black/15"></div>
+                            <img src="img/clmagno.jpg" alt="CL Magno - Data Engineer and Analyst" class="relative aspect-[4/3] w-full rounded-[2rem] border border-line bg-gray-200 object-cover object-center shadow-soft">
+                        </div>
+                        <div class="mt-12">
+                            <h2 class="text-4xl font-black tracking-[-0.04em]">Meet Your Instructor</h2>
+                            <p class="mt-2 text-xl font-semibold">CL Magno - Data Engineer & Analyst</p>
+                        </div>
                     </div>
-                </div>
 
-                <div class="md:col-span-7">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-2">Meet Your Instructor</h2>
-                    <h3 class="text-xl text-blue-600 font-semibold mb-6">CL Magno — Data Engineer & Analyst</h3>
-                    
-                    <div class="space-y-4 text-gray-600 text-lg">
+                    <div class="text-lg leading-8 text-gray-800">
                         <p>Drawing on a strong foundation as a Software Developer, I transitioned into the world of Data Engineering and Analysis to build scalable pipelines and architect robust data models.</p>
-                        <p>As the founder of CL Magno I.T. Solutions, I actively develop cross-platform applications and lead technical training programs. My goal is to bridge the gap between theoretical concepts and production-ready implementation.</p>
-                        <p>Beyond the bootcamp, I share my passion for technology and continuous learning through my YouTube channel, creating tutorials and resources for aspiring data professionals and developers.</p>
-                    </div>
+                        <p class="mt-5">As the founder of CL Magno I.T. Solutions, I actively develop cross-platform applications and lead technical training programs. My goal is to bridge the gap between theoretical concepts and production-ready implementation.</p>
+                        <p class="mt-5">Beyond the bootcamp, I share my passion for technology and continuous learning through my YouTube channel, creating tutorials and resources for aspiring data professionals and developers.</p>
 
-                    <div class="mt-8">
-                        <h4 class="text-sm font-bold text-gray-900 uppercase tracking-wider mb-3">Core Stack & Expertise</h4>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="bg-white text-blue-700 text-sm px-3 py-1.5 rounded-md font-medium border border-gray-200">Python</span>
-                            <span class="bg-white text-blue-700 text-sm px-3 py-1.5 rounded-md font-medium border border-gray-200">SQL & PostgreSQL</span>
-                            <span class="bg-white text-blue-700 text-sm px-3 py-1.5 rounded-md font-medium border border-gray-200">PySpark</span>
-                            <span class="bg-white text-blue-700 text-sm px-3 py-1.5 rounded-md font-medium border border-gray-200">Apache Airflow</span>
-                            <span class="bg-white text-blue-700 text-sm px-3 py-1.5 rounded-md font-medium border border-gray-200">GCP</span>
-                            <span class="bg-white text-blue-700 text-sm px-3 py-1.5 rounded-md font-medium border border-gray-200">Star Schema Modeling</span>
+                        <div class="mt-10">
+                            <h3 class="mb-4 text-xl font-black text-ink">Core Stack & Expertise</h3>
+                            <div class="flex flex-wrap gap-3">
+                                <span class="rounded-md bg-ink px-4 py-2 text-sm font-black text-white">Python</span>
+                                <span class="rounded-md bg-ink px-4 py-2 text-sm font-black text-white">SQL & PostgreSQL</span>
+                                <span class="rounded-md bg-ink px-4 py-2 text-sm font-black text-white">PySpark</span>
+                                <span class="rounded-md bg-ink px-4 py-2 text-sm font-black text-white">Apache Airflow</span>
+                                <span class="rounded-md bg-ink px-4 py-2 text-sm font-black text-white">GCP</span>
+                                <span class="rounded-md bg-ink px-4 py-2 text-sm font-black text-white">Star Schema Modeling</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="enroll" class="py-20 bg-white border-t border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-2 gap-16 items-center">
-                
-                <div>
-                    <h2 class="text-3xl font-bold text-gray-900 mb-4">Ready to Build Your Future?</h2>
-                    <p class="text-gray-600 mb-8 text-lg">
-                        Whether you are looking to enroll in the upcoming Data Engineering Career Accelerator, or you need a custom cross-platform application for your business, we are ready to help.
+        <section id="contact" class="bg-white">
+            <div class="dark-radial grid-bg border-y border-ink px-5 py-14 text-center text-white sm:px-6 lg:px-8">
+                <div class="mx-auto max-w-4xl">
+                    <p class="mb-4 text-xs font-black uppercase tracking-[0.3em] text-white/60">Contact</p>
+                    <h2 class="text-4xl font-black tracking-[-0.04em] sm:text-5xl">Ready to Build Your Future?</h2>
+                    <p class="mx-auto mt-5 max-w-2xl text-base leading-7 text-white/85">
+                        Whether you need a custom application or you want to enroll in training, send the details and we will map the next step.
                     </p>
-                    
-                    <div class="space-y-6">
-                        <div class="flex items-start">
-                            <div class="flex-shrink-0 mt-1">
-                                <svg class="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.243-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                </div>
+            </div>
+
+            <div class="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8 lg:py-20">
+                <div class="space-y-6">
+                    <div class="rounded-2xl border border-line bg-paper p-7 shadow-[0_5px_0_rgba(0,0,0,0.14)]">
+                        <h3 class="text-2xl font-black tracking-tight">What we can help with</h3>
+                        <div class="mt-6 space-y-5">
+                            <div class="flex gap-4">
+                                <span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-ink text-white">
+                                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17 9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2z" /></svg>
+                                </span>
+                                <div>
+                                    <h4 class="font-black">Custom web and mobile apps</h4>
+                                    <p class="mt-1 text-sm leading-6 text-gray-600">From internal tools to customer-facing platforms.</p>
+                                </div>
                             </div>
-                            <div class="ml-4">
-                                <h4 class="text-lg font-bold text-gray-900">Location</h4>
-                                <p class="text-gray-600">Taguig, Metro Manila, Philippines</p>
+                            <div class="flex gap-4">
+                                <span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-ink text-white">
+                                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5s3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18s-3.332.477-4.5 1.253" /></svg>
+                                </span>
+                                <div>
+                                    <h4 class="font-black">Bootcamp and self-paced training</h4>
+                                    <p class="mt-1 text-sm leading-6 text-gray-600">Project-based learning for aspiring data professionals.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4">
+                                <span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-ink text-white">
+                                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428A8 8 0 1 0 8.572 4.572M12 8v4l3 3" /></svg>
+                                </span>
+                                <div>
+                                    <h4 class="font-black">Corporate I.T. enablement</h4>
+                                    <p class="mt-1 text-sm leading-6 text-gray-600">Upskill teams with practical automation, data, and cloud workflows.</p>
+                                </div>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="flex items-start">
-                            <div class="flex-shrink-0 mt-1">
-                                <svg class="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    <div class="grid gap-4 rounded-2xl border border-line bg-white p-7 shadow-soft">
+                        <a href="mailto:admin@clmits.com" class="flex items-center gap-4 rounded-xl border border-line p-4 transition hover:border-ink hover:bg-paper">
+                            <span class="grid h-10 w-10 place-items-center rounded-xl bg-paper">
+                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 0 0 2.22 0L21 8M5 19h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2z" /></svg>
+                            </span>
+                            <div>
+                                <p class="text-sm font-black">Email</p>
+                                <p class="text-sm text-gray-600">admin@clmits.com</p>
                             </div>
-                            <div class="ml-4">
-                                <h4 class="text-lg font-bold text-gray-900">Email Us</h4>
-                                <p class="text-gray-600">admin@clmits.com</p>
+                        </a>
+                        <a href="https://www.youtube.com/@CLMITS" class="flex items-center gap-4 rounded-xl border border-line p-4 transition hover:border-ink hover:bg-paper">
+                            <span class="grid h-10 w-10 place-items-center rounded-xl bg-paper">
+                                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zM9 16V8l8 3.993L9 16z" /></svg>
+                            </span>
+                            <div>
+                                <p class="text-sm font-black">Free Resources</p>
+                                <p class="text-sm text-gray-600">YouTube Channel</p>
                             </div>
-                        </div>
-
-                        <div class="flex items-start">
-                            <div class="flex-shrink-0 mt-1">
-                                <svg class="h-6 w-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path></svg>
-                            </div>
-                            <div class="ml-4">
-                                <h4 class="text-lg font-bold text-gray-900">Free Resources</h4>
-                                <p class="text-gray-600"><a href="https://www.youtube.com/@CLMITS" class="text-blue-600 hover:underline">Subscribe to our YouTube Channel</a> for coding tutorials and tech insights.</p>
+                        </a>
+                        <div class="flex items-center gap-4 rounded-xl border border-line p-4">
+                            <span class="grid h-10 w-10 place-items-center rounded-xl bg-paper">
+                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657 13.414 20.9a2 2 0 0 1-2.827 0l-4.244-4.243a8 8 0 1 1 11.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" /></svg>
+                            </span>
+                            <div>
+                                <p class="text-sm font-black">Location</p>
+                                <p class="text-sm text-gray-600">Metro Manila, Philippines</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-gray-50 p-8 rounded-xl border border-gray-200">
-                    <form action="https://formspree.io/f/mkoendon" method="POST" class="space-y-6">
-                        <div>
-                            <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
-                            <input type="text" id="name" name="name" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors">
+                <div class="rounded-3xl border border-gray-300 bg-[#f2f2f2] p-5 shadow-[0_8px_0_rgba(0,0,0,0.18)] sm:p-8">
+                    <form action="https://formspree.io/f/mkoendon" method="POST" class="rounded-2xl bg-white p-6 shadow-sm sm:p-8">
+                        <input type="hidden" name="_subject" value="New inquiry from clmits.com">
+                        <div class="mb-8">
+                            <p class="text-xs font-black uppercase tracking-[0.26em] text-gray-500">Inquiry Form</p>
+                            <h3 class="mt-3 text-3xl font-black tracking-[-0.04em]">Tell us what you need.</h3>
+                            <p class="mt-3 text-sm leading-6 text-gray-600">Give enough context so we can respond with the right recommendation, not generic brochure energy.</p>
                         </div>
-                        <div>
-                            <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
-                            <input type="email" id="email" name="email" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors">
+
+                        <div class="grid gap-5 sm:grid-cols-2">
+                            <div>
+                                <label for="name" class="mb-2 block text-sm font-black">Full Name</label>
+                                <input type="text" id="name" name="name" autocomplete="name" required class="block w-full rounded-xl border border-gray-300 bg-paper px-4 py-3 text-sm outline-none transition focus:border-ink focus:bg-white focus:ring-4 focus:ring-black/5" placeholder="Your name">
+                            </div>
+                            <div>
+                                <label for="email" class="mb-2 block text-sm font-black">Email Address</label>
+                                <input type="email" id="email" name="email" autocomplete="email" required class="block w-full rounded-xl border border-gray-300 bg-paper px-4 py-3 text-sm outline-none transition focus:border-ink focus:bg-white focus:ring-4 focus:ring-black/5" placeholder="you@email.com">
+                            </div>
                         </div>
-                        <div>
-                            <label for="interest" class="block text-sm font-medium text-gray-700">I am interested in...</label>
-                            <select id="interest" name="interest" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md bg-white focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors">
+
+                        <div class="mt-5">
+                            <label for="interest" class="mb-2 block text-sm font-black">I am interested in...</label>
+                            <select id="interest" name="interest" required class="block w-full rounded-xl border border-gray-300 bg-paper px-4 py-3 text-sm outline-none transition focus:border-ink focus:bg-white focus:ring-4 focus:ring-black/5">
                                 <option value="" disabled selected>Select an option</option>
                                 <option value="Bootcamp">Data Engineering Bootcamp</option>
                                 <option value="SelfPaced">Self-Paced Masterclass</option>
@@ -415,71 +568,89 @@
                                 <option value="Training">Corporate I.T. Training</option>
                             </select>
                         </div>
-                        <div>
-                            <label for="message" class="block text-sm font-medium text-gray-700">Message or Background</label>
-                            <textarea id="message" name="message" rows="4" placeholder="Tell us about your goals or your current technical background..." class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"></textarea>
+
+                        <div class="mt-5">
+                            <label for="message" class="mb-2 block text-sm font-black">Message or Background</label>
+                            <textarea id="message" name="message" rows="6" placeholder="Tell us about your goals, current technical background, app idea, timeline, or business problem..." class="block w-full resize-y rounded-xl border border-gray-300 bg-paper px-4 py-3 text-sm outline-none transition focus:border-ink focus:bg-white focus:ring-4 focus:ring-black/5"></textarea>
                         </div>
-                        <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-md hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                            Submit Inquiry
-                        </button>
+
+                        <div class="mt-6 grid gap-4 sm:grid-cols-[1fr_auto] sm:items-center">
+                            <p class="text-xs leading-5 text-gray-500">By submitting this form, your inquiry will be sent through Formspree to CL Magno I.T. Solutions.</p>
+                            <button type="submit" class="inline-flex justify-center rounded-xl bg-ink px-8 py-3.5 text-sm font-black text-white transition hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-black/10">
+                                Submit Inquiry
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <footer class="bg-gray-900 text-white py-12 border-t border-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-                
-                <div class="md:col-span-1">
-                    <span class="font-bold text-xl text-blue-500 tracking-tight">CL Magno I.T. Solutions</span>
-                    <p class="mt-4 text-gray-400 text-sm leading-relaxed">
-                        Empowering businesses with robust cross-platform applications and shaping the next generation of data professionals through intensive training.
-                    </p>
+    <footer class="bg-ink py-12 text-white">
+        <div class="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+            <div class="grid gap-10 md:grid-cols-4">
+                <div>
+                    <div class="flex items-center gap-3">
+                        <img src="img/clmits.png" alt="CLMITS logo" class="h-11 w-11 rounded-xl bg-white object-contain">
+                        <span class="font-black tracking-tight">CL Magno I.T. Solutions</span>
+                    </div>
+                    <p class="mt-5 text-sm leading-6 text-white/60">Building robust applications and shaping practical, job-ready data professionals.</p>
                 </div>
 
                 <div>
-                    <h4 class="font-semibold text-lg mb-4 text-gray-100">Services</h4>
-                    <ul class="space-y-2 text-sm text-gray-400">
-                        <li><a href="#services" class="hover:text-blue-400 transition-colors">Web App Development</a></li>
-                        <li><a href="#services" class="hover:text-blue-400 transition-colors">Mobile App Development</a></li>
-                        <li><a href="#services" class="hover:text-blue-400 transition-colors">Corporate I.T. Training</a></li>
+                    <h4 class="font-black">Services</h4>
+                    <ul class="mt-4 space-y-3 text-sm text-white/60">
+                        <li><a href="#services" class="hover:text-white">Web App Development</a></li>
+                        <li><a href="#services" class="hover:text-white">Mobile App Development</a></li>
+                        <li><a href="#contact" class="hover:text-white">Corporate I.T. Training</a></li>
                     </ul>
                 </div>
 
                 <div>
-                    <h4 class="font-semibold text-lg mb-4 text-gray-100">Learning</h4>
-                    <ul class="space-y-2 text-sm text-gray-400">
-                        <li><a href="#bootcamps" class="hover:text-blue-400 transition-colors">Live Career Accelerator</a></li>
-                        <li><a href="#preview" class="hover:text-blue-400 transition-colors">Self-Paced Masterclass</a></li>
-                        <li><a href="https://portal.clmagno.com" class="hover:text-blue-400 transition-colors text-blue-500 font-medium">Student Portal Login &rarr;</a></li>
+                    <h4 class="font-black">Learning</h4>
+                    <ul class="mt-4 space-y-3 text-sm text-white/60">
+                        <li><a href="#bootcamps" class="hover:text-white">Live Career Accelerator</a></li>
+                        <li><a href="#preview" class="hover:text-white">Self-Paced Masterclass</a></li>
+                        <li><a href="https://portal.clmagno.com" class="font-black text-white hover:text-white/80">Student Portal Login &rarr;</a></li>
                     </ul>
                 </div>
 
                 <div>
-                    <h4 class="font-semibold text-lg mb-4 text-gray-100">Connect</h4>
-                    <ul class="space-y-2 text-sm text-gray-400">
-                        <li>Taguig, Metro Manila</li>
-                        <li><a href="mailto:admin@clmits.com" class="hover:text-blue-400 transition-colors">admin@clmits.com</a></li>
-                        <li class="pt-2">
-                            <a href="#" class="inline-flex items-center text-gray-400 hover:text-white transition-colors">
-                                <svg class="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path></svg>
-                                YouTube Channel
-                            </a>
-                        </li>
+                    <h4 class="font-black">Connect</h4>
+                    <ul class="mt-4 space-y-3 text-sm text-white/60">
+                        <li>Metro Manila, Philippines</li>
+                        <li><a href="mailto:admin@clmits.com" class="hover:text-white">admin@clmits.com</a></li>
+                        <li><a href="https://www.youtube.com/@CLMITS" class="hover:text-white">YouTube Channel</a></li>
                     </ul>
                 </div>
             </div>
 
-            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+            <div class="mt-10 flex flex-col gap-4 border-t border-white/10 pt-8 text-sm text-white/50 md:flex-row md:items-center md:justify-between">
                 <p>&copy; 2026 CL Magno I.T. Solutions. All rights reserved.</p>
-                <div class="mt-4 md:mt-0 space-x-4">
-                    <a href="#" class="hover:text-gray-300">Privacy Policy</a>
-                    <a href="#" class="hover:text-gray-300">Terms of Service</a>
+                <div class="flex gap-5">
+                    <a href="#" class="hover:text-white">Privacy Policy</a>
+                    <a href="#" class="hover:text-white">Terms of Service</a>
                 </div>
             </div>
         </div>
     </footer>
+
+    <script>
+        const menuButton = document.getElementById('menuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+        if (menuButton && mobileMenu) {
+            menuButton.addEventListener('click', () => {
+                const isOpen = !mobileMenu.classList.contains('hidden');
+                mobileMenu.classList.toggle('hidden');
+                menuButton.setAttribute('aria-expanded', String(!isOpen));
+            });
+            mobileMenu.querySelectorAll('a').forEach((link) => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    menuButton.setAttribute('aria-expanded', 'false');
+                });
+            });
+        }
+    </script>
 </body>
 </html>
